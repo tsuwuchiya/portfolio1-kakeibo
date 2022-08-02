@@ -1,0 +1,16 @@
+type Kakeibo @model @auth(rules: [{ allow: owner }]) {
+  id: ID
+  price: Int!
+  category: String!
+  shopName: String!
+  comment: String
+  date: AWSDate!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String!
+    @index(
+      name: "byOwnerAndDate"
+      sortKeyFields: ["date"]
+      queryField: "kakeiboByOwnerAndDate"
+    )
+}
