@@ -765,6 +765,7 @@ export default {
     barOptions() {
       return {
         responsive: true,
+        maintainAspectRatio: false,
         indexAxis: "x",
         scales: {
           x: {
