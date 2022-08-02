@@ -610,15 +610,22 @@ export default {
             ],
           },
         };
-        const kakeibos = await API.graphql({
-          query: listKakeibos,
-          variables: {
-            filter: filter,
-          },
-        });
+        let kakeibos = [];
+        let nextToken = null;
+        do {
+          const res = await API.graphql({
+            query: listKakeibos,
+            variables: {
+              filter: filter,
+              nextToken,
+            },
+          });
+          kakeibos = [...kakeibos, ...res.data.listKakeibos.items];
+          nextToken = res.data.listKakeibos.nextToken;
+        } while (nextToken);
         // 初期化
         this.totals = [];
-        for (let data of kakeibos.data.listKakeibos.items) {
+        for (let data of kakeibos) {
           const month = moment(data.date).format("M");
           const category = data.category;
           if (!this.totals[month]) {
