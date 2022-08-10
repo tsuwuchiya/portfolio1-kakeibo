@@ -315,6 +315,7 @@ select {
   max-width: 100%;
   max-height: 95vh;
   padding: 3em 3rem 4rem;
+  overflow-y: scroll;
   z-index: 999;
   opacity: 0;
   transition: 0.3s;
@@ -453,6 +454,21 @@ select {
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 1s;
+}
+
+.copyright {
+  padding: 0.5em;
+  background-color: #555;
+  box-shadow: 0 20px 8px -10px rgb(0 0 0 / 15%) inset;
+}
+.copyright * {
+  display: block;
+  color: white;
+  text-align: center;
+  margin: auto;
+}
+.copyright svg {
+  margin: 0.25em auto 0.5em;
 }
 
 @media screen and (max-width: 500px) {

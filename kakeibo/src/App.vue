@@ -10,7 +10,11 @@
       <LoadingScreen :isLoading="isLoading" />
 
       <div class="graph">
-        <BarChart :chartData="barData" :options="barOptions" />
+        <BarChart
+          :chartData="barData"
+          :options="barOptions"
+          style="height: 50vh"
+        />
       </div>
       <h2>{{ toMonth }}月</h2>
       <div class="flex-between">
@@ -72,6 +76,8 @@
               <option>食費</option>
               <option>衣類</option>
               <option>日用品・雑貨</option>
+              <option>医療費</option>
+              <option>交通費</option>
               <option>趣味・旅行</option>
               <option>公共料金</option>
               <option>家賃</option>
@@ -91,6 +97,7 @@
               <option value="コンビニ"></option>
               <option value="飲食店"></option>
               <option value="ドラッグストア"></option>
+              <option value="病院"></option>
               <option value="ホームセンター"></option>
               <option value="その他"></option>
             </datalist>
@@ -174,7 +181,7 @@
               ・グラフ切り替え<br />
               ・一覧ソート<br />
               ・収入の登録<br />
-              ・LINEなどに通知（夫婦で共有）<br />
+              ・LINEなどに通知（夫婦で共有等）<br />
               ・エクスポート、インポート
             </p>
           </form>
@@ -190,7 +197,22 @@
         <amplify-sign-out></amplify-sign-out>
       </nav>
     </div>
-    <p class="copyright">&copy; {{ toYear }} Tsuchiya.</p>
+    <div class="copyright">
+      <a target="_blank" href="https://github.com/tsuwuchiya">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          width="32"
+          height="32"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+          ></path>
+        </svg>
+      </a>
+      <p>&copy; {{ toYear }} Tsuchiya.</p>
+    </div>
   </amplify-authenticator>
 </template>
 
@@ -466,7 +488,7 @@ export default {
       this.showMsg("保存しました。");
 
       // 一覧に追加
-      this.kakeibos = [...this.kakeibos, res.data.createKakeibo];
+      this.kakeibos = [res.data.createKakeibo, ...this.kakeibos];
 
       this.getTotals();
 
@@ -724,14 +746,16 @@ export default {
       let labels = [];
       let datasets = [];
       let i = 0; // 集計時に何月の集計かをインデックス指定用
-      // とりあえず6色、色の自動生成は諸説なので足りなくなったら1色目に戻るでいいと思う
+      // とりあえず8色、色の自動生成は諸説なので足りなくなったら1色目に戻るでいいと思う
       const color = [
         "rgba(153, 102, 255, 1)",
         "rgba(255, 99, 132, 1)",
+        "rgba(255, 206, 86, 1)",
         "rgba(54, 162, 235, 1)",
         "rgba(255, 159, 64, 1)",
-        "rgba(255, 206, 86, 1)",
         "rgba(75, 192, 192, 1)",
+        "rgba(253, 159, 225, 1)",
+        "rgba(187, 187, 187, 1)",
       ];
 
       // 事前に取得したデータを集計にかける
