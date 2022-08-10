@@ -147,8 +147,7 @@
           </p>
           <br />
           <p>
-            <a href="URL TODO">GitHub</a>
-            ※直リンクでのみ閲覧可のリポジトリです。
+            <a href="https://github.com/tsuwuchiya/portfolio1-kakeibo/">GitHub</a>
           </p>
           <p>
             Mail: <a href="mailto:tsuwuchiya@gmail.com">tsuwuchiya@gmail.com</a>
